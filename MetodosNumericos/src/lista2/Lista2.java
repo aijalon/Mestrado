@@ -71,12 +71,12 @@ public class Lista2 {
 	}
 	
 	public void pontoFixo(int a, int i) {
-		x++;
+		x=8.4;
 		
 		while(erroAbsoluto>tolerancia && this.i<i) {
 			xold = x;
 			this.i++;
-			x = funcaoG(xold, a);
+			x = funcaoPontoFixo(xold);
 			if(x!=0) {
 				erroAbsoluto = erroAbsoluto();
 			}
@@ -125,6 +125,10 @@ public class Lista2 {
 	
 	private double funcao(double x, int a) {
 		return x/a - Math.tan(x*a);
+	}
+	
+	private double funcaoPontoFixo(double x) {
+		return Math.atan(x/2)/2;
 	}
 	
 	private double funcaoG(double x, int a) {
