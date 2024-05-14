@@ -3,6 +3,7 @@ package lista3;
 public class StartLista3 {
 
 	public static void main(String[] args) {
-		MatrizHilbert hilbert = new MatrizHilbert(5);
+		@SuppressWarnings("unused")
+		MatrizHilbert hilbert = new MatrizHilbert(9);
 	}
 }

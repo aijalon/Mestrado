@@ -39,7 +39,7 @@ public class PivoteamentoCompleto {
 		//				matriz[ai][aj] = entrada.nextDouble();
 		//			}
 		//		}
-
+		entrada.close();
 		this.matriz[0][0]= -2;
 		this.matriz[0][1]= 3;
 		this.matriz[0][2]= 1;

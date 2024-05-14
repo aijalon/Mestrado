@@ -131,6 +131,7 @@ public class Lista2 {
 		return Math.atan(x/2)/2;
 	}
 	
+	@SuppressWarnings("unused")
 	private double funcaoG(double x, int a) {
 		return a*a*Math.tan(x);
 	}

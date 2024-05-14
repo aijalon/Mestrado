@@ -3,6 +3,7 @@ package lista3;
 public class MatrizHilbert {
 
 	private double[][] matrizHilbert;
+	private Metodos metodos = new Metodos();
 	
 	public MatrizHilbert(int n) {
 		this.matrizHilbert = new double[n][n+1];
@@ -17,22 +18,6 @@ public class MatrizHilbert {
 			this.matrizHilbert[i][n] = soma;
 			soma=0;
 		}	
-		imprimir(n, n+1);
+		metodos.gaussPivotamentoTotal(matrizHilbert /*, 1, 1.0/10000, 100*/);
 	}
-	
-	private void imprimir(int i, int j) {
-		for(int ai = 0; ai<i; ai++) {
-			for(int aj = 0; aj<j; aj++) {
-				if(aj==0) {
-					System.out.print("| ");
-				}
-
-				System.out.print(this.matrizHilbert[ai][aj]+" ");
-
-				if(aj==j-1) {
-					System.out.println("|\n");
-				}
-			}
-		}		
-	}	
 }
