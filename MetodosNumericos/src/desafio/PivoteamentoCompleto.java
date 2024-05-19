@@ -2,6 +2,8 @@ package desafio;
 
 import java.util.Scanner;
 
+import lista3.MatrizHilbert;
+
 public class PivoteamentoCompleto {
 
 	private double[][] matriz;
@@ -16,6 +18,7 @@ public class PivoteamentoCompleto {
 	private double pivo;
 	private int linhaPivo = 0;
 	private int colunaPivo = 0;
+	private MatrizHilbert hilbert;
 
 	public PivoteamentoCompleto(int i, int j) {
 		this.i = i;
@@ -29,49 +32,51 @@ public class PivoteamentoCompleto {
 		this.primeiraLinha = new double[j];
 
 		matrizPermutacao();
+		hilbert = new MatrizHilbert(i);
+		matriz = hilbert.matrizHilbert();
 
-		Scanner entrada = new Scanner(System.in);
-
-		//		for(int ai = 0; ai<this.i; ai++) {
-		//			for(int aj = 0; aj<this.j; aj++) {
-		//				System.out.println("Informe o elemento a"+(ai+1)+(aj+1)+": ");
-		//
-		//				matriz[ai][aj] = entrada.nextDouble();
-		//			}
-		//		}
-		entrada.close();
-		this.matriz[0][0]= -2;
-		this.matriz[0][1]= 3;
-		this.matriz[0][2]= 1;
-		this.matriz[0][3]= -5;
-
-		this.matriz[1][0]= 2;
-		this.matriz[1][1]= -3;
-		this.matriz[1][2]= -2;
-		this.matriz[1][3]= -1;
-
-		this.matriz[2][0]= 4; //0
-		this.matriz[2][1]= 10;
-		this.matriz[2][2]= -6; //-5
-		this.matriz[2][3]= 2;
+//		Scanner entrada = new Scanner(System.in);
+//
+//		//		for(int ai = 0; ai<this.i; ai++) {
+//		//			for(int aj = 0; aj<this.j; aj++) {
+//		//				System.out.println("Informe o elemento a"+(ai+1)+(aj+1)+": ");
+//		//
+//		//				matriz[ai][aj] = entrada.nextDouble();
+//		//			}
+//		//		}
+//		entrada.close();
+//		this.matriz[0][0]= -2;
+//		this.matriz[0][1]= 3;
+//		this.matriz[0][2]= 1;
+//		this.matriz[0][3]= -5;
+//
+//		this.matriz[1][0]= 2;
+//		this.matriz[1][1]= -3;
+//		this.matriz[1][2]= -2;
+//		this.matriz[1][3]= -1;
+//
+//		this.matriz[2][0]= 4; //0
+//		this.matriz[2][1]= 10;
+//		this.matriz[2][2]= -6; //-5
+//		this.matriz[2][3]= 2;
 
 	}
 
 
 	private void verificaSolucao() {
 		if(i==j-1) {
-			System.out.println("Sistema Sol˙vel e Determinado (SSD): o sistema tÍm\n"
-					+ "uma ˙nica soluÁ„o, o n˙mero de equaÁıes linearmente\n"
-					+ "independentes È igual ao n˙mero de incÛgnitas (n=m)\n");
+			System.out.println("Sistema Sol√∫vel e Determinado (SSD): o sistema t√™m\n"
+					+ "uma √∫nica solu√ß√£o, o n√∫mero de equa√ß√µes linearmente\n"
+					+ "independentes √© igual ao n√∫mero de inc√≥gnitas (n=m)\n");
 		}else if(i<j-1) {
-			System.out.println("Sistema Sol˙vel e Indeterminado (SSI): o sistema\n"
-					+ "tem infinitas soluÁıes, o n˙mero de equaÁıes\n"
-					+ "linearmente independentes È menor que o n˙mero de\n"
-					+ "incÛgnitas (n<m)");
+			System.out.println("Sistema Sol√∫vel e Indeterminado (SSI): o sistema\n"
+					+ "tem infinitas solu√ß√µes, o n√∫mero de equ√ß√µes\n"
+					+ "linearmente independentes √© menor que o n√∫mero de\n"
+					+ "inc√≥gnitas (n<m)");
 		}else {
-			System.out.println("Sistema Insol˙vel (SI): o sistema n„o tem soluÁ„o, o\n"
-					+ "n˙mero de equaÁıes LI È maior que o n˙mero de\n"
-					+ "incÛgnitas (n>m)");
+			System.out.println("Sistema Insol√∫vel (SI): o sistema n√£o tem solu√ß√£o, o\n"
+					+ "n√∫mero de equa√ß√µes LI √© maior que o n√∫mero de\n"
+					+ "inc√≥gnitas (n>m)");
 		}
 	}
 
@@ -95,7 +100,7 @@ public class PivoteamentoCompleto {
 
 							if (triangularSuperior()) {
 								copiarMatriz();
-								System.out.println("A matriz est· triangular superior.");
+								System.out.println("A matriz est√° triangular superior.");
 								for(int n = 1; n<=2; n++) {
 									this.matriz[i+1][j+k+n] = (this.matrizCopia[i+1][j+k+n]-m*this.primeiraLinha[j+k+n]);
 								}
@@ -122,8 +127,8 @@ public class PivoteamentoCompleto {
 			solucao[linha] = (this.matriz[linha][this.j - 1] - soma) / this.matriz[linha][linha];
 		}
 
-		// Exibe a soluÁ„o
-		System.out.println("SoluÁ„o do sistema:");
+		// Exibe a solu√ß√£o
+		System.out.println("Solu√ß√£o do sistema:");
 		for (int n = 0; n < this.i; n++) {
 			for(int k = 0; k < this.j-1; k++) {
 				if(this.matrizPermutacao[n][k]==1) {

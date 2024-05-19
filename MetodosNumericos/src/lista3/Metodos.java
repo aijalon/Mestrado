@@ -8,17 +8,25 @@ public class Metodos {
 	double[][] matrizHilbert;
 	int i = 0;
 	int j = 0;
+	String resultado = "";
+	StringBuilder sb = new StringBuilder();
 
 
-	// a) Eliminação de Gauss com substituição regressiva
+
+	// a) EliminaÃ§Ã£o de Gauss com substituiÃ§Ã£o regressiva
 	public void gaussEliminacao(double[][] matriz) {
+		sb.setLength(0);
+
+		this.i = matriz.length;
+		this.j = matriz.length+1;
+
 		int n = matriz.length;
 		this.matrizHilbert = matriz;
 		double[] solucao = new double[n];
-		
-		System.out.println("Matriz aumentada (n = "+n+"):");
-		imprimirMatriz(n, n+1);
-		// Fase de eliminação
+
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
+		// Fase de eliminaÃ§Ã£o
 		for (int i = 0; i < n - 1; i++) {
 			for (int k = i + 1; k < n; k++) {
 				double fator = matriz[k][i] / matriz[i][i];
@@ -28,7 +36,7 @@ public class Metodos {
 			}
 		}
 
-		// Substituição regressiva
+		// SubstituiÃ§Ã£o regressiva
 		for (int i = n - 1; i >= 0; i--) {
 			double soma = 0.0;
 			for (int j = i + 1; j < n; j++) {
@@ -36,23 +44,27 @@ public class Metodos {
 			}
 			solucao[i] = (matriz[i][n] - soma) / matriz[i][i];
 		}
-		
-		System.out.println("Matriz com a eliminação:");
-		imprimirMatriz(n, n+1);
-		imprimirSoulucao(solucao);
+		sb.append("Matriz com a eliminaÃ§Ã£o: \n \n");
+		imprimirTudo(n, n+1, solucao);
+
 	}
 
-	// b) Eliminação de Gauss com pivotamento parcial
+	// b) EliminaÃ§Ã£o de Gauss com pivotamento parcial
 	public void gaussPivotamentoParcial(double[][] matriz) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
 		int n = matriz.length;
 		this.matrizHilbert = matriz;
 		double[] solucao = new double[n];
 
-		System.out.println("Matriz aumentada (n = "+n+"):");
-		imprimirMatriz(n, n+1);
-		// Fase de eliminação
+
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
+		// Fase de eliminaÃ§Ã£o
 		for (int i = 0; i < n - 1; i++) {
-			// Encontrando a linha com o maior pivô
+			// Encontrando a linha com o maior pivÃ´
 			int maxIndex = i;
 			double maxValor = Math.abs(matriz[i][i]);
 			for (int k = i + 1; k < n; k++) {
@@ -67,7 +79,7 @@ public class Metodos {
 				matriz[i] = matriz[maxIndex];
 				matriz[maxIndex] = temp;
 			}
-			// Eliminação
+			// EliminaÃ§Ã£o
 			for (int k = i + 1; k < n; k++) {
 				double fator = matriz[k][i] / matriz[i][i];
 				for (int j = i; j < n + 1; j++) {
@@ -76,7 +88,7 @@ public class Metodos {
 			}
 		}
 
-		// Substituição regressiva
+		// SubstituiÃ§Ã£o regressiva
 		for (int i = n - 1; i >= 0; i--) {
 			double soma = 0.0;
 			for (int j = i + 1; j < n; j++) {
@@ -84,21 +96,24 @@ public class Metodos {
 			}
 			solucao[i] = (matriz[i][n] - soma) / matriz[i][i];
 		}
-		
-		System.out.println("Matriz com a eliminação:");
-		imprimirMatriz(n, n+1);
-		imprimirSoulucao(solucao);
+
+		sb.append("Matriz com a eliminaÃ§Ã£o: \n \n");
+		imprimirTudo(n, n+1, solucao);
 
 	}
 
-	// c) Eliminação de Gauss com pivotamento parcial com escala
+	// c) EliminaÃ§Ã£o de Gauss com pivotamento parcial com escala
 	public void gaussPivotamentoParcialComEscala(double[][] matriz) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
 		int n = matriz.length;
 		this.matrizHilbert = matriz;
 		double[] solucao = new double[n];
-		
-		System.out.println("Matriz aumentada (n = "+n+"):");
-		imprimirMatriz(n, n+1);
+
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
 
 		// Vetor para armazenar as escalas das linhas
 		double[] escalas = new double[n];
@@ -111,9 +126,9 @@ public class Metodos {
 			}
 		}
 
-		// Fase de eliminação
+		// Fase de eliminaÃ§Ã£o
 		for (int i = 0; i < n - 1; i++) {
-			// Encontrando a linha com o maior pivô
+			// Encontrando a linha com o maior pivÃ´
 			int maxIndex = i;
 			double maxValor = Math.abs(matriz[i][i] / escalas[i]);
 			for (int k = i + 1; k < n; k++) {
@@ -132,7 +147,7 @@ public class Metodos {
 				escalas[i] = escalas[maxIndex];
 				escalas[maxIndex] = tempEscala;
 			}
-			// Eliminação
+			// EliminaÃ§Ã£o
 			for (int k = i + 1; k < n; k++) {
 				double fator = matriz[k][i] / matriz[i][i];
 				for (int j = i; j < n + 1; j++) {
@@ -141,7 +156,7 @@ public class Metodos {
 			}
 		}
 
-		// Substituição regressiva
+		// SubstituiÃ§Ã£o regressiva
 		for (int i = n - 1; i >= 0; i--) {
 			double soma = 0.0;
 			for (int j = i + 1; j < n; j++) {
@@ -150,67 +165,92 @@ public class Metodos {
 			solucao[i] = (matriz[i][n] - soma) / matriz[i][i];
 		}
 
-		System.out.println("Matriz com a eliminação:");
-		imprimirMatriz(n, n+1);
-		imprimirSoulucao(solucao);
+		sb.append("Matriz com a eliminaÃ§Ã£o: \n \n");
+		imprimirTudo(n, n+1, solucao);
 	}
 
-	// d) Eliminação de Gauss com pivotamento total
+	// d) EliminaÃ§Ã£o de Gauss com pivotamento total
 	public void gaussPivotamentoTotal(double[][] matriz) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
 		int n = matriz.length;
 		this.matrizHilbert = matriz;
 		double[] solucao = new double[n];
 
-		System.out.println("Matriz aumentada (n = "+n+"):");
-		imprimirMatriz(n, n+1);
-		
-		// Fase de eliminação
-		int[] p = new int[n];
-		for (int i = 0; i < n; i++) {
-			p[i] = i;
-		}
+	    int[] p = new int[n];
+	    for (int i = 0; i < n; i++) {
+	        p[i] = i;
+	    }
 
-		for (int i = 0; i < n - 1; i++) {
-			// Encontrando o maior elemento (pivô)
-			double max = Math.abs(matriz[i][i]);
-			int maxIndexI = i;
-			int maxIndexJ = i;
-			for (int j = i; j < n; j++) {
-				for (int k = i; k < n; k++) {
-					if (Math.abs(matriz[j][k]) > max) {
-						max = Math.abs(matriz[j][k]);
-						maxIndexI = j;
-						maxIndexJ = k;
-					}
-				}
-			}
-			// Trocando linhas
-			if (maxIndexI != i) {
-				double[] temp = matriz[i];
-				matriz[i] = matriz[maxIndexI];
-				matriz[maxIndexI] = temp;
-			}
-			// Trocando colunas
-			if (maxIndexJ != i) {
-				for (int k = 0; k < n; k++) {
-					double temp = matriz[k][i];
-					matriz[k][i] = matriz[k][maxIndexJ];
-					matriz[k][maxIndexJ] = temp;
-				}
-				int temp = p[i];
-				p[i] = p[maxIndexJ];
-				p[maxIndexJ] = temp;
-			}
-			// Eliminação
-			for (int k = i + 1; k < n; k++) {
-				double fator = matriz[k][i] / matriz[i][i];
-				for (int j = i; j < n + 1; j++) {
-					matriz[k][j] -= fator * matriz[i][j];
-				}
-			}
-		}
+	    // Fase de eliminaÃ§Ã£o
+	    for (int i = 0; i < n - 1; i++) {
+	        // Encontrando o maior elemento (pivÃ´)
+	        double max = Math.abs(matriz[i][i]);
+	        int maxIndexI = i;
+	        int maxIndexJ = i;
+	        for (int j = i; j < n; j++) {
+	            for (int k = i; k < n; k++) {
+	                if (Math.abs(matriz[j][k]) > max) {
+	                    max = Math.abs(matriz[j][k]);
+	                    maxIndexI = j;
+	                    maxIndexJ = k;
+	                }
+	            }
+	        }
+	    
+	        // Trocando linhas
+	        if (maxIndexI != i) {
+	            double[] temp = matriz[i];
+	            matriz[i] = matriz[maxIndexI];
+	            matriz[maxIndexI] = temp;
+	        }
 
-		// Substituição regressiva
+	        // Trocando colunas
+	        if (maxIndexJ != i) {
+	            for (int k = 0; k < n; k++) {
+	                double temp = matriz[k][i];
+	                matriz[k][i] = matriz[k][maxIndexJ];
+	                matriz[k][maxIndexJ] = temp;
+	            }
+	            int temp = p[i];
+	            p[i] = p[maxIndexJ];
+	            p[maxIndexJ] = temp;
+	        }
+
+	        // EliminaÃ§Ã£o
+	        for (int k = i + 1; k < n; k++) {
+	            double fator = matriz[k][i] / matriz[i][i];
+	            matriz[k][i] = 0; // Para evitar pequenos erros numÃ©ricos
+	            for (int j = i + 1; j < n + 1; j++) {
+	                matriz[k][j] -= fator * matriz[i][j];
+	            }
+	        }
+	    }
+
+	    // SubstituiÃ§Ã£o retroativa
+	    for (int i = n - 1; i >= 0; i--) {
+	        solucao[i] = matriz[i][n];
+	        for (int j = i + 1; j < n; j++) {
+	            solucao[i] -= matriz[i][j] * solucao[j];
+	        }
+	        solucao[i] /= matriz[i][i];
+	    }
+
+	    // Reordenar a soluÃ§Ã£o de acordo com a permutaÃ§Ã£o de colunas
+	    double[] solucaoOrdenada = new double[n];
+	    for (int i = 0; i < n; i++) {
+	        solucaoOrdenada[p[i]] = solucao[i];
+	    }
+
+	    // Exibir a soluÃ§Ã£o
+	    System.out.println("SoluÃ§Ãµes:");
+	    for (int i = 0; i < n; i++) {
+	        System.out.printf("x%d = %.10f%n", i + 1, solucaoOrdenada[i]);
+	    }
+
+		// SubstituiÃ§Ã£o regressiva
 		for (int i = n - 1; i >= 0; i--) {
 			double soma = 0.0;
 			for (int j = i + 1; j < n; j++) {
@@ -219,169 +259,193 @@ public class Metodos {
 			solucao[i] = (matriz[i][n] - soma) / matriz[i][i];
 		}
 
-		// Reordenando a solução
+		// Reordenando a soluÃ§Ã£o
 		double[] solucaoReordenada = new double[n];
 		for (int i = 0; i < n; i++) {
 			solucaoReordenada[p[i]] = solucao[i];
 		}
 
-		System.out.println("Matriz com a eliminação:");
-		imprimirMatriz(n, n+1);
-		imprimirSoulucao(solucao);
+		sb.append("Matriz com a eliminaÃ§Ã£o: \n \n");
+		imprimirTudo(n, n+1, solucao);
 	}
-	
-	// e) Método de Jacobi
-	public double[] jacobi(double[][] matriz, double tolerancia, int iteracoesMax) {
-        int n = matriz.length;
-        this.matrizHilbert = matriz;
-        double[] x = new double[n]; // vetor inicial
-        double[] novoX = new double[n]; // vetor para armazenar as novas iterações
-        
-        System.out.println("Matriz aumentada (n = "+n+"):");
-        imprimirMatriz(n, n+1);
 
-        // Realiza iterações até convergir ou atingir o número máximo de iterações
-        int iteracao = 0;
-        while (iteracao < iteracoesMax) {
-            for (int i = 0; i < n; i++) {
-                double soma = 0.0;
-                for (int j = 0; j < n; j++) {
-                    if (j != i) {
-                        soma += matriz[i][j] * x[j];
-                    }
-                }
-                novoX[i] = (matriz[i][n] - soma) / matriz[i][i];
-            }
+	// e) MÃ©todo de Jacobi
+	public boolean jacobi(double[][] matriz, double tolerancia, int iteracoesMax) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
+		int n = matriz.length;
+		this.matrizHilbert = matriz;
+		double[] x = new double[n]; // vetor inicial
+		double[] novoX = new double[n]; // vetor para armazenar as novas iteraÃ§Ãµes
 
-            // Verifica convergência pela norma máxima
-            double erro = 0.0;
-            for (int i = 0; i < n; i++) {
-                double diff = Math.abs(novoX[i] - x[i]);
-                if (diff > erro) {
-                    erro = diff;
-                }
-            }
-            if (erro < tolerancia) {
-        		System.out.println("Matriz com a eliminação:");
-        		imprimirMatriz(n, n+1);
-        		imprimirSoulucao(novoX);
-                return novoX; // retorna a solução se convergiu
-            }
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
 
-            // Atualiza vetor x
-            x = Arrays.copyOf(novoX, n);
-            iteracao++;
-        }
-
-        System.out.println("O método de Jacobi não convergiu após " + iteracoesMax + " iterações.");
-        return null; // retorna null se não convergiu
-    }
-
-    // f) Método de Gauss-Seidel
-	public double[] gaussSeidel(double[][] matriz, double tolerancia, int iteracoesMax) {
-        int n = matriz.length;
-        this.matrizHilbert = matriz;
-        double[] x = new double[n]; // vetor inicial
-        
-        System.out.println("Matriz aumentada (n = "+n+"):");
-        imprimirMatriz(n, n+1);
-
-        // Realiza iterações até convergir ou atingir o número máximo de iterações
-        int iteracao = 0;
-        while (iteracao < iteracoesMax) {
-            double erro = 0.0;
-            for (int i = 0; i < n; i++) {
-                double soma1 = 0.0;
-                for (int j = 0; j < i; j++) {
-                    soma1 += matriz[i][j] * x[j];
-                }
-                double soma2 = 0.0;
-                for (int j = i + 1; j < n; j++) {
-                    soma2 += matriz[i][j] * x[j];
-                }
-                double novoX = (matriz[i][n] - soma1 - soma2) / matriz[i][i];
-                double diff = Math.abs(novoX - x[i]);
-                if (diff > erro) {
-                    erro = diff;
-                }
-                x[i] = novoX;
-            }
-            if (erro < tolerancia) {
-        		System.out.println("Matriz com a eliminação:");
-        		imprimirMatriz(n, n+1);
-        		imprimirSoulucao(x);
-                return x; // retorna a solução se convergiu
-            }
-            iteracao++;
-        }
-
-        System.out.println("O método de Gauss-Seidel não convergiu após " + iteracoesMax + " iterações.");
-        return null; // retorna null se não convergiu
-    }
-
-    // g) Método de Sobre-relaxamento
-	 public double[] sobreRelaxamento(double[][] matriz, double omega, double tolerancia, int iteracoesMax) {
-	        int n = matriz.length;
-	        this.matrizHilbert = matriz;
-	        double[] x = new double[n]; // vetor inicial
-	        
-	        System.out.println("Matriz aumentada (n = "+n+"):");
-	        imprimirMatriz(n, n+1);
-
-	        // Realiza iterações até convergir ou atingir o número máximo de iterações
-	        int iteracao = 0;
-	        while (iteracao < iteracoesMax) {
-	            double erro = 0.0;
-	            for (int i = 0; i < n; i++) {
-	                double soma1 = 0.0;
-	                for (int j = 0; j < i; j++) {
-	                    soma1 += matriz[i][j] * x[j];
-	                }
-	                double soma2 = 0.0;
-	                for (int j = i + 1; j < n; j++) {
-	                    soma2 += matriz[i][j] * x[j];
-	                }
-	                double novoX = (1 - omega) * x[i] + (omega / matriz[i][i]) * (matriz[i][n] - soma1 - soma2);
-	                double diff = Math.abs(novoX - x[i]);
-	                if (diff > erro) {
-	                    erro = diff;
-	                }
-	                x[i] = novoX;
-	            }
-	            if (erro < tolerancia) {
-	        		System.out.println("Matriz com a eliminação:");
-	        		imprimirMatriz(n, n+1);
-	        		imprimirSoulucao(x);
-	                return x; // retorna a solução se convergiu
-	            }
-	            iteracao++;
-	        }
-
-	        System.out.println("O método de Sobre-relaxamento não convergiu após " + iteracoesMax + " iterações.");
-	        return null; // retorna null se não convergiu
-	    }
-
-	private void imprimirMatriz(int i, int j) {
-		for(int ai = 0; ai<i; ai++) {
-			for(int aj = 0; aj<j; aj++) {
-				if(aj==0) {
-					System.out.print("| ");
+		// Realiza iteraÃ§Ãµes atÃ© convergir ou atingir o nÃºmero mÃ¡ximo de iteraÃ§Ãµes
+		int iteracao = 0;
+		while (iteracao < iteracoesMax) {
+			for (int i = 0; i < n; i++) {
+				double soma = 0.0;
+				for (int j = 0; j < n; j++) {
+					if (j != i) {
+						soma += matriz[i][j] * x[j];
+					}
 				}
+				novoX[i] = (matriz[i][n] - soma) / matriz[i][i];
+			}
 
-				System.out.print(this.matrizHilbert[ai][aj]+" ");
-
-				if(aj==j-1) {
-					System.out.println("|\n");
+			// Verifica convergÃªncia pela norma mÃ¡xima
+			double erro = 0.0;
+			for (int i = 0; i < n; i++) {
+				double diff = Math.abs(novoX[i] - x[i]);
+				if (diff > erro) {
+					erro = diff;
 				}
 			}
-		}		
+			if (erro < tolerancia) {
+				imprimirSolucao(novoX);
+				this.resultado = sb.toString();
+				return true; // retorna a soluÃ§Ãµes se convergiu
+			}
+
+			// Atualiza vetor x
+			x = Arrays.copyOf(novoX, n);
+			iteracao++;
+		}
+
+		sb.append("O mÃ©todo de Jacobi nÃ£o convergiu apÃ³s " + iteracoesMax + " iteraÃ§Ãµes. \n \n");
+		imprimirSolucao(novoX);
+		this.resultado = sb.toString();
+		return false; // retorna null se nÃ£o convergiu
 	}
 
-	private void imprimirSoulucao(double[] solucao) {
-		System.out.println("Solução do sistema:");
-		for (int n = 0; n < solucao.length; n++) {				
-			System.out.println("x" + (n + 1) + " = " + solucao[n]);					
+	// f) MÃ©todo de Gauss-Seidel
+	public boolean gaussSeidel(double[][] matriz, double tolerancia, int iteracoesMax) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
+		
+		int n = matriz.length;
+		this.matrizHilbert = matriz;
+		double[] x = new double[n]; // vetor inicial
 
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
+
+		// Realiza iteraÃ§Ãµes atÃ© convergir ou atingir o nÃºmero mÃ¡ximo de iteraÃ§Ãµes
+		int iteracao = 0;
+		while (iteracao < iteracoesMax) {
+			double erro = 0.0;
+			for (int i = 0; i < n; i++) {
+				double soma1 = 0.0;
+				for (int j = 0; j < i; j++) {
+					soma1 += matriz[i][j] * x[j];
+				}
+				double soma2 = 0.0;
+				for (int j = i + 1; j < n; j++) {
+					soma2 += matriz[i][j] * x[j];
+				}
+				double novoX = (matriz[i][n] - soma1 - soma2) / matriz[i][i];
+				double diff = Math.abs(novoX - x[i]);
+				if (diff > erro) {
+					erro = diff;
+				}
+				x[i] = novoX;
+			}
+			if (erro < tolerancia) {
+				imprimirSolucao(x);
+				this.resultado = sb.toString();
+				return true; // retorna a soluÃ§Ã£o se convergiu
+			}
+			iteracao++;
 		}
+
+		sb.append("O mÃ©todo de Gauss-Seidel nÃ£o convergiu apÃ³s " + iteracoesMax + " iteraÃ§Ãµes. \n \n");
+		imprimirSolucao(x);
+		this.resultado = sb.toString();
+		return false; // retorna null se nÃ£o convergiu
+	}
+
+	// g) MÃ©todo de Sobre-relaxamento
+	public boolean sobreRelaxamento(double[][] matriz, double omega, double tolerancia, int iteracoesMax) {
+		sb.setLength(0);
+		
+		this.i = matriz.length;
+		this.j = matriz.length+1;
+		int n = matriz.length;
+		this.matrizHilbert = matriz;
+		double[] x = new double[n]; // vetor inicial
+
+		sb.append("Matriz aumentada (n = "+n+"): \n \n");
+		gerarMatriz();
+
+		// Realiza iteraÃ§Ãµes atÃ© convergir ou atingir o nÃºmero mÃ¡ximo de iteraÃ§Ãµes
+		int iteracao = 0;
+		while (iteracao < iteracoesMax) {
+			double erro = 0.0;
+			for (int i = 0; i < n; i++) {
+				double soma1 = 0.0;
+				for (int j = 0; j < i; j++) {
+					soma1 += matriz[i][j] * x[j];
+				}
+				double soma2 = 0.0;
+				for (int j = i + 1; j < n; j++) {
+					soma2 += matriz[i][j] * x[j];
+				}
+				double novoX = (1 - omega) * x[i] + (omega / matriz[i][i]) * (matriz[i][n] - soma1 - soma2);
+				double diff = Math.abs(novoX - x[i]);
+				if (diff > erro) {
+					erro = diff;
+				}
+				x[i] = novoX;
+			}
+			if (erro < tolerancia) {
+				sb.append("Matriz com a eliminaÃ§Ã£o: \n \n");
+				imprimirTudo(n, n+1, x);
+				return true; // retorna a soluÃ§Ã£o se convergiu
+			}
+			iteracao++;
+		}
+
+		sb.append("O mÃ©todo de Sobre-relaxamento nÃ£o convergiu apÃ³s " + iteracoesMax + " iteraÃ§Ãµes. \n \n" );
+		imprimirTudo(n, n+1, x);
+		return false; // retorna null se nÃ£o convergiu
+	}
+
+	public void imprimirTudo(int i, int j, double[] solucao) {
+		gerarMatriz();
+		imprimirSolucao(solucao);
+		this.resultado = sb.toString();
+	}
+
+	public void gerarMatriz() {
+		for (int ai = 0; ai < i; ai++) {
+			for (int aj = 0; aj < j; aj++) {
+				if (aj == 0) {
+					sb.append("[ ");
+				}
+
+				sb.append(this.matrizHilbert[ai][aj]).append(" ");
+
+				if (aj == j - 1) {
+					sb.append("]\n");
+				}
+			}
+		}
+		sb.append("\n");
+	}
+	
+	public void imprimirSolucao(double[] solucao) {
+		sb.append("SoluÃ§Ã£o do sistema:\n \n");
+		for (int n = 0; n < solucao.length; n++) {
+			sb.append("x").append(n + 1).append(" = ").append(solucao[n]).append("\n");
+		}
+	}
+
+	public String texto() {
+		return resultado;
 	}
 }

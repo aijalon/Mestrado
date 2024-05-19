@@ -17,7 +17,11 @@ public class MatrizHilbert {
 			}
 			this.matrizHilbert[i][n] = soma;
 			soma=0;
-		}	
-		metodos.gaussPivotamentoTotal(matrizHilbert /*, 1, 1.0/10000, 100*/);
+		}
+		metodos.sobreRelaxamento(matrizHilbert, 2, 1.0/100000, 20);
+	}
+	
+	public double[][] matrizHilbert(){
+		return matrizHilbert;
 	}
 }
