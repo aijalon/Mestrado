@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -31,10 +30,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 
-import projetoI.Condicionamento;
-import projetoI.InversaoMatrizLU;
-import projetoI.MatrizHilbert;
-import projetoI.Metodos;
+import lista3.Condicionamento;
+import lista3.InversaoMatrizLU;
+import lista3.MatrizHilbert;
+import lista3.Metodos;
 
 public class TelaInicial {
 	private MatrizHilbert criaMatriz;
@@ -73,8 +72,6 @@ public class TelaInicial {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-
-
 	public void telainicial() {
 		JFrame jFrame = new JFrame();
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,7 +164,7 @@ public class TelaInicial {
 		endereco.setForeground(new Color(255, 255, 255));
 		footer.add(endereco);
 
-		JPanel panel = new JPanel();
+		final JPanel panel = new JPanel();
 		jFrame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new CardLayout(0, 0));
 
@@ -184,18 +181,11 @@ public class TelaInicial {
 		letraa.add(textFielda);
 		textFielda.setColumns(10);
 
-
 		JButton oka = new JButton("ok");
 		oka.setBounds(348, 7, 57, 23);
 		oka.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFielda.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFielda.getText()));
 				metodos.desempenhoGaussEliminacao((criaMatriz.matrizHilbert()));
 				textAreaa.setText(metodos.texto());
 			}
@@ -230,12 +220,7 @@ public class TelaInicial {
 		JButton okb = new JButton("ok");
 		okb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldb.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldb.getText()));
 				metodos.desempenhoPivoteamentoParcial(criaMatriz.matrizHilbert());
 				textAreab.setText(metodos.texto());
 			}
@@ -259,12 +244,7 @@ public class TelaInicial {
 		JButton okc = new JButton("ok");
 		okc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldc.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldc.getText()));
 				metodos.desempenhoPivoteamentoParcialEscala(criaMatriz.matrizHilbert());
 				textAreac.setText(metodos.texto());
 			}
@@ -295,12 +275,7 @@ public class TelaInicial {
 		JButton btnNewButtond = new JButton("ok");
 		btnNewButtond.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldd.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldd.getText()));
 				metodos.desempenhoPivoteamentoTotal(criaMatriz.matrizHilbert());
 				textAread.setText(metodos.texto());
 			}
@@ -331,12 +306,7 @@ public class TelaInicial {
 		JButton btnNewButtone = new JButton("ok");
 		btnNewButtone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFielde.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFielde.getText()));
 				boolean convergiu = metodos.desempenhoJacobi(criaMatriz.matrizHilbert(), Double.parseDouble(toleranciae.getText()), Integer.parseInt(iteracoese.getText()));
 				textAreae.setText(metodos.texto());
 				if(!convergiu) {
@@ -405,12 +375,7 @@ public class TelaInicial {
 		JButton btnNewButtonf = new JButton("ok");
 		btnNewButtonf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldf.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldf.getText()));
 				boolean convergiu = metodos.desempenhoGaussSeidel(criaMatriz.matrizHilbert(), Double.parseDouble(toleranciaf.getText()), Integer.parseInt(iteracoesf.getText()));
 				textAreaf.setText(metodos.texto());
 				if(!convergiu) {
@@ -471,12 +436,7 @@ public class TelaInicial {
 		JButton btnNewButtong = new JButton("ok");
 		btnNewButtong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldg.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textFieldg.getText()));
 				boolean convergiu = metodos.desempenhoSobreRelaxamento(criaMatriz.matrizHilbert(), Double.parseDouble(omegag.getText()), Double.parseDouble(toleranciag.getText()), Integer.parseInt(iteracoesg.getText()));
 				textAreag.setText(metodos.texto());
 				if(!convergiu) {
@@ -503,41 +463,36 @@ public class TelaInicial {
 		ex2.add(scrollPane_7);
 
 		scrollPane_7.setViewportView(textAreaex2);
-
+		
 		JPanel condicionamento = new JPanel();
 		panel.add(condicionamento, "name_431149905373200");
 		condicionamento.setLayout(null);
-
+		
 		JLabel lblNewLabel_14 = new JLabel("Informe o tamanho da matriz de Hilbert:");
 		lblNewLabel_14.setBounds(13, 12, 231, 14);
 		condicionamento.add(lblNewLabel_14);
-
+		
 		textField = new JTextField();
 		textField.setBounds(248, 9, 96, 20);
 		condicionamento.add(textField);
 		textField.setColumns(10);
-
+		
 		JButton btnNewButton = new JButton("ok");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					criaMatriz = new MatrizHilbert(Integer.parseInt(textField.getText()));
-				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "Erro " + e1.getMessage()+". Certifique-se de usar apenas números e '.' como separador decimal.",
-		                    "Erro de Formatação", JOptionPane.ERROR_MESSAGE);
-				}
-
+				criaMatriz = new MatrizHilbert(Integer.parseInt(textField.getText()));
+				
 				String retorno = verificaCondicionamento.analisarMatrizHilbert(criaMatriz.matrizHilbert());
 				textAreacond.setText(retorno);
 			}
 		});
 		btnNewButton.setBounds(348, 7, 57, 23);
 		condicionamento.add(btnNewButton);
-
+		
 		JScrollPane scrollPane_8 = new JScrollPane(textAreacond,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane_8.setBounds(13, 37, 1154, 568);
 		condicionamento.add(scrollPane_8);
-
+		
 		scrollPane_8.setViewportView(textAreacond);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -669,36 +624,36 @@ public class TelaInicial {
 				double[][] inversaB = inversao.calcularInversa(B);
 
 
-				sb.append("Inversa da matriz A: \n \n");
-				for (double[] linha : inversaA) {
-					sb.append(Arrays.toString(linha));
-					sb.append("\n");
-				}
+		        sb.append("Inversa da matriz A: \n \n");
+		        for (double[] linha : inversaA) {
+		            sb.append(Arrays.toString(linha));
+		            sb.append("\n");
+		        }
 
-				sb.append("\n Inversa da matriz B: \n \n");
-				for (double[] linha : inversaB) {
-					sb.append(Arrays.toString(linha));
-					sb.append("\n");
-				}
-
-				boolean resultadoA = inversao.verificaIdentidade(A, inversaA);
-				boolean resultadoB = inversao.verificaIdentidade(B, inversaB);
-
-
-				sb.append("\n Resultado para A*A^-1 = I: " + resultadoA+ "\n");
-				sb.append("Resultado para B*B^-1 = I: " + resultadoB );
-
-				textAreaex2.setText(sb.toString());
-
+		        sb.append("\n Inversa da matriz B: \n \n");
+		        for (double[] linha : inversaB) {
+		        	 sb.append(Arrays.toString(linha));
+		        	 sb.append("\n");
+		        }
+		        
+		        boolean resultadoA = inversao.verificaIdentidade(A, inversaA);
+		        boolean resultadoB = inversao.verificaIdentidade(B, inversaB);
+		        
+		        
+		        sb.append("\n Resultado para A*A^-1 = I: " + resultadoA+ "\n");
+		        sb.append("Resultado para B*B^-1 = I: " + resultadoB );
+		        
+		        textAreaex2.setText(sb.toString());
+		        
 			}
 		});
 		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnNewMenu_1.add(mntmNewMenuItem);
-
+		
 		JMenu mnNewMenu_2 = new JMenu("Condicionamento");
 		mnNewMenu_2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		menuBar.add(mnNewMenu_2);
-
+		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Verificar Matriz");
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {

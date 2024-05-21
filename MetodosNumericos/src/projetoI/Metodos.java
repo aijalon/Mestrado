@@ -1,4 +1,4 @@
-package lista3;
+package projetoI;
 
 import java.util.Arrays;
 
@@ -245,9 +245,9 @@ public class Metodos {
 	    }
 
 	    // Exibir a solução
-	    System.out.println("Soluções:");
+	   sb.append("\n Soluções:");
 	    for (int i = 0; i < n; i++) {
-	        System.out.printf("x%d = %.10f%n", i + 1, solucaoOrdenada[i]);
+	        sb.append(("\n x"+(i + 1)+" = "+ solucaoOrdenada[i]));
 	    }
 
 		// Substituição regressiva
@@ -265,7 +265,7 @@ public class Metodos {
 			solucaoReordenada[p[i]] = solucao[i];
 		}
 
-		sb.append("Matriz com a eliminação: \n \n");
+		sb.append("\n Matriz com a eliminação: \n \n");
 		imprimirTudo(n, n+1, solucao);
 	}
 
@@ -366,7 +366,7 @@ public class Metodos {
 		sb.append("O método de Gauss-Seidel não convergiu após " + iteracoesMax + " iterações. \n \n");
 		imprimirSolucao(x);
 		this.resultado = sb.toString();
-		return false; // retorna null se não convergiu
+		return false; // retorna false se não convergiu
 	}
 
 	// g) Método de Sobre-relaxamento
@@ -412,13 +412,13 @@ public class Metodos {
 
 		sb.append("O método de Sobre-relaxamento não convergiu após " + iteracoesMax + " iterações. \n \n" );
 		imprimirTudo(n, n+1, x);
-		return false; // retorna null se não convergiu
+		return false; // retorna false se não convergiu
 	}
 
 	public void imprimirTudo(int i, int j, double[] solucao) {
 		gerarMatriz();
 		imprimirSolucao(solucao);
-		this.resultado = sb.toString();
+		imprimirErroVerdadeiro(solucao);
 	}
 
 	public void gerarMatriz() {
@@ -447,5 +447,78 @@ public class Metodos {
 
 	public String texto() {
 		return resultado;
+	}
+	
+	public void imprimirErroVerdadeiro(double[] solucao) {
+		sb.append("\nErro verdadeiro:\n \n");
+		for (int n = 0; n < solucao.length; n++) {
+			sb.append("Erro ").append(n + 1).append(" = ").append(Math.abs(1-solucao[n])).append("\n");
+		}
+	}
+	
+	public void desempenhoGaussEliminacao(double[][] matriz) {
+		long startTime = System.nanoTime();
+		gaussEliminacao(matriz);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\nTempo de execução (Eliminação de Gauss com substituição regressiva): " + duration + " ns");
+		this.resultado = sb.toString();
+	}
+	
+	public void desempenhoPivoteamentoParcial(double[][] matriz) {
+		long startTime = System.nanoTime();
+		gaussPivotamentoParcial(matriz);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\nTempo de execução (Eliminação de Gauss com pivotamento parcial): " + duration + " ns");
+		this.resultado = sb.toString();
+	}
+	
+	public void desempenhoPivoteamentoParcialEscala(double[][] matriz) {
+		long startTime = System.nanoTime();
+		gaussPivotamentoParcialComEscala(matriz);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\nTempo de execução (Eliminação de Gauss com pivotamento parcial com escala): " + duration + " ns");
+		this.resultado = sb.toString();
+	}
+	
+	public void desempenhoPivoteamentoTotal(double[][] matriz) {
+		long startTime = System.nanoTime();
+		gaussPivotamentoTotal(matriz);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\nTempo de execução (Eliminação de Gauss com pivotamento total): " + duration + " ns");
+		this.resultado = sb.toString();
+	}
+	
+	public boolean desempenhoJacobi(double[][] matriz, double tolerancia, int iteracoesMax) {
+		long startTime = System.nanoTime();
+		boolean convergiu = jacobi(matriz, tolerancia, iteracoesMax);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\nTempo de execução (Método Jacobi): " + duration + " ns");
+		this.resultado = sb.toString();
+		return convergiu;
+	}
+	
+	public boolean desempenhoGaussSeidel(double[][] matriz,  double tolerancia, int iteracoesMax) {
+		long startTime = System.nanoTime();
+		boolean convergiu =gaussSeidel(matriz, tolerancia, iteracoesMax);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\n Tempo de execução (Método Gauss-Seidel): " + duration + " ns");
+		this.resultado = sb.toString();
+		return convergiu;
+	}
+	
+	public boolean desempenhoSobreRelaxamento(double[][] matriz, double omega, double tolerancia, int iteracoesMax ) {
+		long startTime = System.nanoTime();
+		boolean convergiu = sobreRelaxamento(matriz, omega, tolerancia, iteracoesMax);
+		long endTime = System.nanoTime();
+		long duration = (endTime - startTime);
+		sb.append("\n Tempo de execução (Método Sobre-Relaxamento): " + duration + " ns");
+		this.resultado = sb.toString();
+		return convergiu;
 	}
 }
