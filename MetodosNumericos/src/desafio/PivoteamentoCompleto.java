@@ -1,7 +1,5 @@
 package desafio;
 
-import java.util.Scanner;
-
 import lista3.MatrizHilbert;
 
 public class PivoteamentoCompleto {

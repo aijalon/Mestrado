@@ -247,7 +247,7 @@ public class Metodos {
 	    // Exibir a solução
 	    System.out.println("Soluções:");
 	    for (int i = 0; i < n; i++) {
-	        System.out.printf("x%d = %.10f%n", i + 1, solucaoOrdenada[i]);
+	        System.out.println("x = "+ i + 1 + solucaoOrdenada[i]);
 	    }
 
 		// Substituição regressiva
