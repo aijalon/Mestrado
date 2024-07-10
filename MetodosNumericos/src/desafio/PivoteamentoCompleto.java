@@ -1,6 +1,6 @@
 package desafio;
 
-import lista3.MatrizHilbert;
+import projetoI.MatrizHilbert;
 
 public class PivoteamentoCompleto {
 

@@ -464,7 +464,7 @@ public class TelaInicial {
 
 		scrollPane_7.setViewportView(textAreaex2);
 		
-		JPanel condicionamento = new JPanel();
+		final JPanel condicionamento = new JPanel();
 		panel.add(condicionamento, "name_431149905373200");
 		condicionamento.setLayout(null);
 		
